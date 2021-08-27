@@ -77,10 +77,17 @@
 </div>
 
 <div id="game" class="modal"> <!-- Да, это костыль, отстаньте -->
-    <div id="color_buttons">
-    </div>
     <h2 class="text-center"><span id="gameUUID"></span> | <span id="player1">0%</span> / <span id="player2">0%</span></h2>
-    <canvas id="canvas"></canvas>
+    <div class="row">
+        <div class="col text-center">
+            <div id="color_buttons"></div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col text-center">
+            <canvas id="canvas"></canvas>
+        </div>
+    </div>
 </div>
 <script>
     const canvas = document.getElementById("canvas");
