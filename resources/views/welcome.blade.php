@@ -77,14 +77,7 @@
 </div>
 
 <div id="game" class="modal"> <!-- Да, это костыль, отстаньте -->
-    <div>
-        <button type="button" class="btn btn-primary" style="background-color: rgb(0,0,200)" onclick="gameSession.step('blue')">+</button>
-        <button type="button" class="btn btn-primary" style="background-color: rgb(0,200,0)" onclick="gameSession.step('green')">+</button>
-        <button type="button" class="btn btn-primary" style="background-color: rgb(0,200,200)" onclick="gameSession.step('cyan')">+</button>
-        <button type="button" class="btn btn-primary" style="background-color: rgb(200,0,0)" onclick="gameSession.step('red')">+</button>
-        <button type="button" class="btn btn-primary" style="background-color: rgb(200,0,200)" onclick="gameSession.step('magenta')">+</button>
-        <button type="button" class="btn btn-primary" style="background-color: rgb(200,200,0)" onclick="gameSession.step('yellow')">+</button>
-        <button type="button" class="btn btn-primary" style="background-color: rgb(200,200,200)" onclick="gameSession.step('white')">+</button>
+    <div id="color_buttons">
     </div>
     <h2 class="text-center"><span id="gameUUID"></span> | <span id="player1">0%</span> / <span id="player2">0%</span></h2>
     <canvas id="canvas"></canvas>
@@ -98,6 +91,7 @@
     const input_width = document.getElementById("input_width");
     const input_height = document.getElementById("input_height");
     const input_uuid = document.getElementById("input_uuid");
+    const color_buttons = document.getElementById("color_buttons");
 
 
     function getPlayer(){
@@ -136,6 +130,17 @@
         new Color("rgb(200,200,0)", "yellow"),
         new Color("rgb(200,200,200)", "white")
     ];
+
+    for(const color of colors){
+        let button = document.createElement("button");
+        button.classList.add("btn");
+        button.classList.add("btn-primary");
+        button.style = `background-color: ${color.color}`;
+        button.onclick = function(){
+            gameSession.step(color.name);
+        };
+        color_buttons.append(button);
+    }
 
     class GameSession{
         uuid;
