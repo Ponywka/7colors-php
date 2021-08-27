@@ -197,6 +197,7 @@
                 const data = xmlHttp.responseText;
                 const {game} = JSON.parse(data);
                 gameSession = new GameSession(game, 1);
+                gameUUID.innerText = game;
                 switchModal("game");
                 break;
             case 400:
@@ -215,6 +216,7 @@
         switch (xmlHttp.status) {
             case 200:
                 gameSession = new GameSession(uuid, player);
+                gameUUID.innerText = uuid;
                 switchModal("game");
                 break;
             case 400:
@@ -281,7 +283,6 @@
 
             p1percent.innerText = `${Math.floor((p1cells * 100) / countCells)}%`;
             p2percent.innerText = `${Math.floor((p2cells * 100) / countCells)}%`;
-            gameUUID.innerText = gameSession.uuid;
         }
     }
 
