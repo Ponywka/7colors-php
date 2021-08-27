@@ -77,7 +77,7 @@
 </div>
 
 <div id="game" class="modal"> <!-- Да, это костыль, отстаньте -->
-    <h2 class="text-center"><span id="gameUUID"></span> | <span id="player1">0%</span> / <span id="player2">0%</span></h2>
+    <h2 class="text-center"><span id="gameUUID"></span> | <span id="player1">0%</span> / <span id="player2">0%</span> | <span id="gameStatus">Загрузка...</span></h2>
     <div class="row">
         <div class="col text-center">
             <div id="color_buttons"></div>
@@ -99,6 +99,7 @@
     const input_height = document.getElementById("input_height");
     const input_uuid = document.getElementById("input_uuid");
     const color_buttons = document.getElementById("color_buttons");
+    const gameStatus = document.getElementById("gameStatus");
 
 
     function getPlayer(){
@@ -261,8 +262,14 @@
             gameSession.update();
             const responce = gameSession.data;
 
-            const currentPlayerId = responce.currentPlayerId === gameSession.player;
+            const {currentPlayerId, winnerPlayerId} = responce;
             const {width, height, cells} = responce.field;
+
+            if(winnerPlayerId === 0){
+                gameStatus.innerText = `Ходит игрок ${currentPlayerId}`;
+            }else{
+                gameStatus.innerText = `Победил игрок ${winnerPlayerId}`;
+            }
 
             canvas.width = width * 40;
             canvas.height = height * 40;
