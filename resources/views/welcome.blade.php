@@ -139,6 +139,25 @@
             const xmlHttp = new XMLHttpRequest();
             xmlHttp.open( "PUT", `/game/${this.uuid}?playerId=${this.player}&color=${color}`, false );
             xmlHttp.send( null );
+            switch (xmlHttp.status) {
+                case 201:
+                    break;
+                case 400:
+                    alert("Неверные данные");
+                    break;
+                case 403:
+                    alert("Сейчас не ваш ход!");
+                    break;
+                case 404:
+                    alert("Игра не найдена!");
+                    break;
+                case 409:
+                    alert("Цвет уже занят одним из игроков!");
+                    break;
+                default:
+                    alert(`Произошла неизвестная ошибка (${xmlHttp.status})`);
+                    break;
+            }
         }
 
         update(){
@@ -173,15 +192,41 @@
         xmlHttp.open( "POST", '/game', false );
         xmlHttp.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
         xmlHttp.send( `width=${width}&height=${height}` );
-        const data = xmlHttp.responseText;
-        const {game} = JSON.parse(data);
-        gameSession = new GameSession(game, 1);
-        switchModal("game");
+        switch(xmlHttp.status){
+            case 201:
+                const data = xmlHttp.responseText;
+                const {game} = JSON.parse(data);
+                gameSession = new GameSession(game, 1);
+                switchModal("game");
+                break;
+            case 400:
+                alert("Неверные данные");
+                break;
+            default:
+                alert(`Произошла неизвестная ошибка (${xmlHttp.status})`);
+                break;
+        }
     }
 
     function connectGame(uuid, player){
-        gameSession = new GameSession(uuid, player);
-        switchModal("game");
+        const xmlHttp = new XMLHttpRequest();
+        xmlHttp.open( "GET", `/game/${uuid}`, false );
+        xmlHttp.send( null );
+        switch (xmlHttp.status) {
+            case 200:
+                gameSession = new GameSession(uuid, player);
+                switchModal("game");
+                break;
+            case 400:
+                alert("Неверные данные");
+                break;
+            case 404:
+                alert("Игра не найдена!");
+                break;
+            default:
+                alert(`Произошла неизвестная ошибка (${xmlHttp.status})`);
+                break;
+        }
     }
 
     function drawRhombus(x,y,color,player=0,size=40){
