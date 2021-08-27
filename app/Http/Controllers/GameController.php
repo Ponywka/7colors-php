@@ -286,6 +286,10 @@ class GameController extends Controller
             return response(null, 403);
         }
 
+        if($game->winner != 0){
+            return response(null, 403);
+        }
+
         $field = $this->stringToField($game->data, $game->width);
         $lockedColors = [$field[$game->height*2-2][0]["color"], $field[0][$game->width-1]["color"]];
         if(in_array($color, $lockedColors)){
