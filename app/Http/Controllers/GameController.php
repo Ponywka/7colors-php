@@ -237,14 +237,14 @@ class GameController extends Controller
                 "width" => $game->width,
                 "height" => $game->height,
                 "cells" => $outputField,
-                "player" => [
+                "players" => [
                     array(
                         "color" => $field[$game->height*2-2][0]["color"],
-                        "playerId" => 1
+                        "id" => 1
                     ),
                     array(
                         "color" => $field[0][$game->width-1]["color"],
-                        "playerId" => 2
+                        "id" => 2
                     )
                 ]
             ),
