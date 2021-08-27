@@ -131,17 +131,6 @@
         new Color("rgb(200,200,200)", "white")
     ];
 
-    for(const color of colors){
-        let button = document.createElement("button");
-        button.classList.add("btn");
-        button.classList.add("btn-primary");
-        button.style = `background-color: ${color.color}`;
-        button.onclick = function(){
-            gameSession.step(color.name);
-        };
-        color_buttons.append(button);
-    }
-
     class GameSession{
         uuid;
         player;
@@ -166,7 +155,19 @@
         }
     }
 
-    let gameSession;
+    let gameSession
+
+    for(const color of colors){
+        let button = document.createElement("button");
+        button.classList.add("btn");
+        button.classList.add("btn-primary");
+        button.style = `background-color: ${color.color}`;
+        button.onclick = function(){
+            gameSession.step(color.name);
+        };
+        color_buttons.append(button);
+    }
+
     function createGame(width, height){
         const xmlHttp = new XMLHttpRequest();
         xmlHttp.open( "POST", '/game', false );
