@@ -203,8 +203,8 @@
         switch(xmlHttp.status){
             case 201:
                 const data = xmlHttp.responseText;
-                const {game} = JSON.parse(data);
-                gameSession = new GameSession(game, 1);
+                const {id} = JSON.parse(data);
+                gameSession = new GameSession(id, 1);
                 gameUUID.innerText = game;
                 switchModal("game");
                 break;

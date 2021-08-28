@@ -215,7 +215,7 @@ class GameController extends Controller
 
         $game->save();
 
-        return response()->json(['game' => $game->uuid], 201);
+        return response()->json(['id' => $game->uuid], 201);
     }
 
     public function getGame($gameID){
