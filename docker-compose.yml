@@ -1,7 +1,33 @@
 version: '3'
 services:
+    db:
+        image: mysql
+        restart: always
+        environment:
+            MYSQL_ROOT_PASSWORD: "${MYSQL_ROOT_PASSWORD}"
+            MYSQL_DATABASE: "${MYSQL_DATABASE}"
+            MYSQL_USER: "${MYSQL_USER}"
+            MYSQL_PASSWORD: "${MYSQL_PASSWORD}"
+        networks:
+            - local
+        healthcheck:
+            test: [ "CMD", "mysqladmin" ,"ping", "-h", "localhost" ]
+            interval: 30s
+            timeout: 10s
+            retries: 5
+
     httpd-apache:
         build:
             context: ./src
         ports:
             - 8000:80
+        networks:
+            - local
+        restart: always
+        depends_on:
+            - db
+        entrypoint: "./migrate.sh"
+
+networks:
+    local:
+        driver: bridge
