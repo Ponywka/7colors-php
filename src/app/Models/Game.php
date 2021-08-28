@@ -9,5 +9,4 @@ class Game extends Model
 {
     use HasFactory;
     protected $table = 'games';
-    public $timestamps = false;
 }
