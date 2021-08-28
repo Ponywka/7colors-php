@@ -236,18 +236,18 @@ class GameController extends Controller
             "field" => array(
                 "width" => $game->width,
                 "height" => $game->height,
-                "cells" => $outputField,
-                "players" => [
-                    array(
-                        "color" => $field[$game->height*2-2][0]["color"],
-                        "id" => 1
-                    ),
-                    array(
-                        "color" => $field[0][$game->width-1]["color"],
-                        "id" => 2
-                    )
-                ]
+                "cells" => $outputField
             ),
+            "players" => [
+                array(
+                    "id" => 1,
+                    "color" => $field[$game->height*2-2][0]["color"]
+                ),
+                array(
+                    "id" => 2,
+                    "color" => $field[0][$game->width-1]["color"]
+                )
+            ],
             "currentPlayerId" => $game->current_player,
             "winnerPlayerId" => $game->winner
         );
