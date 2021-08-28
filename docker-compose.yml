@@ -1,0 +1,7 @@
+version: '3'
+services:
+    httpd-apache:
+        build:
+            context: ./src
+        ports:
+            - 8000:80
